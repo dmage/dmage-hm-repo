@@ -1,0 +1,49 @@
+#!/bin/bash
+set -euo pipefail
+
+E_OPTERROR=85
+
+FAKE_TMP_DIR=$(mktemp -d --tmpdir hm-make.XXXXXXXXXX)
+FAKE_ROOT="${FAKE_TMP_DIR}/root"
+FAKE_INDEX="${FAKE_TMP_DIR}/index"
+FAKE_FILES_DIR="${FAKE_TMP_DIR}/files"
+
+while getopts ":r:h:" Option; do
+case $Option in
+r)
+    REAL_ROOT=$OPTARG
+    ;;
+h)
+    REAL_HOST=$OPTARG
+    ;;
+esac
+done
+shift $(($OPTIND - 1))
+
+if [ "x${REAL_ROOT:-}" = "x" -o $# -eq 0 ]; then
+    echo "Usage: $0 -r ROOT [-h HOSTNAME] packages..." >&2
+    exit $E_OPTERROR
+fi
+
+REAL_HM_DIR="$REAL_ROOT/.hm"
+REAL_INDEX="$REAL_HM_DIR/index"
+REAL_FILES_DIR="$REAL_HM_DIR/files"
+REAL_BACKUP_ROOT="$REAL_HM_DIR/backup/root/$(date +%Y%m%d-%H%M%S)"
+REAL_BACKUP_FILES_DIR="$REAL_HM_DIR/backup/files/$(date +%Y%m%d-%H%M%S)"
+
+PKGS=("$@")
+
+. hm-funcs.bash
+
+rm -rf "$FAKE_FILES_DIR" && mkdir -p "$FAKE_FILES_DIR"
+rm -rf "$FAKE_ROOT" && mkdir -p "$FAKE_ROOT"
+rm -f "$FAKE_INDEX"
+for PKG in "${PKGS[@]}"; do
+    install_pkg "$PKG"
+done
+
+rsync_files_dir
+rsync_root
+rsync_index
+
+cleanup
