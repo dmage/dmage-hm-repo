@@ -1,0 +1,21 @@
+case `uname -s` in
+Darwin)
+	alias ls='ls -G'
+	;;
+*)
+	alias ls='ls --color=auto'
+	;;
+esac
+
+alias grep='grep --color=auto --exclude=tags'
+alias ack='ack --color-match=bold\ red'
+alias pack='tar --dereference --exclude build --exclude .git --exclude .gitignore'
+
+alias gbranch='git branch --color'
+alias gdiff='git diff --color'
+alias glog='git log --color --decorate -p'
+alias glogstat='git log --color --decorate --stat'
+alias gstatus='git status'
+alias gmergeff='git merge --ff-only'
+alias gmerge='git merge --no-ff --log'
+alias gg='qgit4 --all'
