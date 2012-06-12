@@ -1,8 +1,9 @@
 #!/bin/false
+set -euo pipefail
 
 color() {
     if [ -n "$TERM" ]; then
-        tput -T "$TERM" "$@"
+        tput -T "$TERM" "$@" || true
     fi
 }
 
@@ -88,7 +89,7 @@ create_symlinks_for_all_pkg_files() {
 }
 
 self_content() {
-    cat hm-funcs.bash
+    cat "$BASH_SOURCE"
 }
 
 real_state() {
@@ -101,7 +102,7 @@ real_state() {
 
 real_bash() {
     if [ -n "${REAL_HOST:-}" ]; then
-        ssh -T "$REAL_HOST" bash
+        ssh -T "$REAL_HOST" -l "${REAL_LOGIN:-$(whoami)}" bash
     else
         bash
     fi
@@ -109,6 +110,9 @@ real_bash() {
 
 rsync_real_prefix() {
     if [ -n "${REAL_HOST:-}" ]; then
+        if [ -n "${REAL_LOGIN:-}" ]; then
+            echo -n "${REAL_LOGIN:-}@"
+        fi
         echo "${REAL_HOST:-}:"
     fi
 }
