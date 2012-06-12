@@ -184,7 +184,13 @@ remove_broken_links() {
             mv -vnT "$file" "$REAL_BACKUP_ROOT/${file#$REAL_ROOT/}"
             rmdir -p "$(dirname "$file")" 2>/dev/null || true
         fi
-    done < <(test -r "$REAL_INDEX" && xargs -0 -I'{}' -a "$REAL_INDEX" find -L '{}' -type l -print0 || find -L "$REAL_ROOT" -type l -print0 2>/dev/null)
+    done < <(
+        if [ -r "$REAL_INDEX" ]; then
+            xargs -0 -I'{}' -a "$REAL_INDEX" find -L '{}' -type l -print0 2>/dev/null
+        else
+            find -L "$REAL_ROOT" -type l -print0 2>/dev/null
+        fi
+    )
 }
 
 remove_backup_root_if_empty() {
