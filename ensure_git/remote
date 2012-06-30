@@ -1,0 +1,11 @@
+#!/bin/bash
+if [ -e /etc/gentoo-release ]; then
+    if [ -e /var/db/pkg/dev-vcs/git-* ]; then
+        echo "ensure_git: git installed"
+    else
+        echo "ensure_git: installing git..."
+        sudo emerge -v dev-vcs/git
+    fi
+else
+    echo "ensure_git: unknown system"
+fi

@@ -62,3 +62,5 @@ rsync_root
 rsync_index
 
 fake_cleanup
+
+real_remote

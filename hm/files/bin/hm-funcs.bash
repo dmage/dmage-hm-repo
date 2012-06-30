@@ -195,6 +195,21 @@ real_discover() {
 	discover_export
 }
 
+real_remote() {
+	(
+		real_dump
+		self_content
+		discover_dump
+		for PKG in "${SCHEDULE_PKGS[@]}"; do
+			if [ -r "$PKG/remote" ]; then
+				echo "# $PKG/remote"
+				cat "$PKG/remote"
+				echo
+			fi
+		done
+	) | real_bash
+}
+
 
 install_pkg() {
 	local PKG=$(cd $1; pwd -P)
@@ -329,7 +344,10 @@ create_backup_files_dir() {
 }
 
 remove_backup_files_dir_if_empty() {
-	[ $(ls -1A "$REAL_BACKUP_FILES_DIR" | wc -l) -eq 0 ] && echo "removing empty backup directory $REAL_BACKUP_FILES_DIR" && rmdir "$REAL_BACKUP_FILES_DIR"
+	if [ $(ls -1A "$REAL_BACKUP_FILES_DIR" | wc -l) -eq 0 ]; then
+		echo "removing empty backup directory $REAL_BACKUP_FILES_DIR"
+		rmdir "$REAL_BACKUP_FILES_DIR"
+	fi
 }
 
 create_backup_root() {
@@ -354,5 +372,8 @@ remove_broken_links() {
 }
 
 remove_backup_root_if_empty() {
-	[ $(ls -1A "$REAL_BACKUP_ROOT" | wc -l) -eq 0 ] && echo "removing empty backup directory $REAL_BACKUP_ROOT" && rmdir "$REAL_BACKUP_ROOT"
+	if [ $(ls -1A "$REAL_BACKUP_ROOT" | wc -l) -eq 0 ]; then
+		echo "removing empty backup directory $REAL_BACKUP_ROOT"
+		rmdir "$REAL_BACKUP_ROOT"
+	fi
 }
