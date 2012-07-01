@@ -1,11 +1,12 @@
 #!/bin/bash
 SUBLIME_PATHS=(
-    "$REAL_ROOT/opt/Sublime Text 2"
+    "opt/Sublime Text 2"
+    "Library/Application Support/Sublime Text 2"
 )
 
 DISCOVER_SUBLIME=""
 for SUBLIME in "${SUBLIME_PATHS[@]}"; do
-    if [ -d "$SUBLIME" ]; then
+    if [ -d "$REAL_ROOT/$SUBLIME" ]; then
         DISCOVER_SUBLIME=$SUBLIME
         break
     fi
