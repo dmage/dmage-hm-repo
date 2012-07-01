@@ -1,6 +1,6 @@
 #!/bin/bash
 SUBLIME_PATHS=(
-    "opt/Sublime Text 2"
+    ".config/sublime-text-2"
     "Library/Application Support/Sublime Text 2"
 )
 
