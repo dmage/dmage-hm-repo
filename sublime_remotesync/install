@@ -1,3 +1,6 @@
 #!/bin/bash
 mkdir -p "$HM_WORKDIR/$DISCOVER_SUBLIME"
 $HM_LOCAL_RSYNC -av ./files/ "$HM_WORKDIR/$DISCOVER_SUBLIME/"
+
+mkdir -p "$HM_WORKDIR/bin"
+$HM_LOCAL_RSYNC -av ./tools/ "$HM_WORKDIR/bin/"
