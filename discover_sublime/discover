@@ -1,0 +1,17 @@
+#!/bin/bash
+SUBLIME_PATHS=(
+    "$REAL_ROOT/opt/Sublime Text 2"
+)
+
+DISCOVER_SUBLIME=""
+for SUBLIME in "${SUBLIME_PATHS[@]}"; do
+    if [ -d "$SUBLIME" ]; then
+        DISCOVER_SUBLIME=$SUBLIME
+        break
+    fi
+done
+
+if [ -z "$DISCOVER_SUBLIME" ]; then
+    echo "discover_sublime: failed to find Sublime Text 2" >&2
+    exit 1
+fi
