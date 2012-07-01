@@ -230,12 +230,14 @@ install_pkg() {
 	if [ -x "$PKG/install" ]; then
 		mkdir -p "$FAKE_WORKDIR"
 
+		export HM_REAL_ROOT="$REAL_ROOT"
 		export HM_LOCAL_RSYNC="$LOCAL_RSYNC"
 		export HM_PKG="$PKG"
 		export HM_WORKDIR="$FAKE_WORKDIR"
 		pushd "$HM_PKG" >/dev/null
 		"$PKG/install"
 		popd >/dev/null
+		unset HM_REAL_ROOT
 		unset HM_LOCAL_RSYNC
 		unset HM_PKG
 		unset HM_WORKDIR
