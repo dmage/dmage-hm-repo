@@ -190,7 +190,7 @@ real_discover() {
 			cat <<- EOF
 				discover_dump
 			EOF
-		) | real_bash
+		) | real_bash || echo "exit $?"
 	)"
 	discover_export
 }

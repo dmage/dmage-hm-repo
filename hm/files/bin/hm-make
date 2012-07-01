@@ -30,7 +30,7 @@ if [ "x${REAL_ROOT:-}" = "x" ]; then
 	eval "$(
 		(
 			echo "printf 'REAL_ROOT=%q\n' \$HOME"
-		) | real_bash
+		) | real_bash || echo "exit $?"
 	)"
 	if [ "x${REAL_ROOT:-}" = "x" ]; then
 		echo "$0: Unable to discover \$HOME value. Use -r ROOT option." >&2

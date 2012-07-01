@@ -1,11 +1,29 @@
 #!/bin/bash
-SUBLIME_PATHS=(
+SUBLIME_BINARY_PATHS=(
+    "opt/Sublime Text 2"
+    "Library/Application Support/Sublime Text 2"
+)
+
+SUBLIME_CONFIG_PATHS=(
     ".config/sublime-text-2"
     "Library/Application Support/Sublime Text 2"
 )
 
+DISCOVER_SUBLIME_BINARY=""
+for SUBLIME_BINARY in "${SUBLIME_BINARY_PATHS[@]}"; do
+    if [ -d "$REAL_ROOT/$SUBLIME_BINARY" ]; then
+        DISCOVER_SUBLIME_BINARY=$SUBLIME_BINARY
+        break
+    fi
+done
+
+if [ -z "$DISCOVER_SUBLIME_BINARY" ]; then
+    echo "discover_sublime: failed to find Sublime Text 2 binary" >&2
+    exit 1
+fi
+
 DISCOVER_SUBLIME=""
-for SUBLIME in "${SUBLIME_PATHS[@]}"; do
+for SUBLIME in "${SUBLIME_CONFIG_PATHS[@]}"; do
     if [ -d "$REAL_ROOT/$SUBLIME" ]; then
         DISCOVER_SUBLIME=$SUBLIME
         break
@@ -13,6 +31,6 @@ for SUBLIME in "${SUBLIME_PATHS[@]}"; do
 done
 
 if [ -z "$DISCOVER_SUBLIME" ]; then
-    echo "discover_sublime: failed to find Sublime Text 2" >&2
+    echo "discover_sublime: failed to find Sublime Text 2 config" >&2
     exit 1
 fi
