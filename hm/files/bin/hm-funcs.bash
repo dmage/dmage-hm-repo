@@ -94,7 +94,7 @@ fake_init() {
 
 	rm -rf "$FAKE_FILES_DIR" && mkdir -p "$FAKE_FILES_DIR"
 	rm -rf "$FAKE_ROOT" && mkdir -p "$FAKE_ROOT"
-	rm -f "$FAKE_INDEX"
+	rm -f "$FAKE_INDEX" && touch "$FAKE_INDEX"
 }
 
 fake_cleanup() {
