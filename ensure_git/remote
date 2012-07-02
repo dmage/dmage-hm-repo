@@ -1,10 +1,22 @@
 #!/bin/bash
 if [ -e /etc/gentoo-release ]; then
     if [ -e /var/db/pkg/dev-vcs/git-* ]; then
-        echo "ensure_git: git installed"
+        echo "ensure_git: git installed (gentoo)"
     else
-        echo "ensure_git: installing git..."
+        echo "ensure_git: installing git via emerge..."
         sudo emerge -v dev-vcs/git
+    fi
+elif [ -e /etc/debian_version ]; then
+    if dpkg -l git-core >/dev/null; then
+        if which git >/dev/null; then
+            echo "ensure_git: git installed (debian)"
+        else
+            echo "ensure_git: partially removed package, reinstalling git-core via apt-get..."
+            sudo apt-get -y install git-core
+        fi
+    else
+        echo "ensure_git: installing git-core via apt-get..."
+        sudo apt-get -y install git-core
     fi
 else
     echo "ensure_git: unknown system"
