@@ -7,13 +7,13 @@ fi
 RAND_COLOR_FIRST=17
 RAND_COLOR_LAST=231
 
-PS1_SESSION='\h'
+PS1_SESSION='\D{%H:%M:%S} \h'
 PS1_PATH='\w'
 
 HOSTNAME=$(hostname)
 case $HOSTNAME in
 nibbler)
-    PS1_SESSION='\u@\h'
+    PS1_SESSION='\D{%H:%M:%S} \u@\h'
     ;;
 esac
 
