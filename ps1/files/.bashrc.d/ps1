@@ -4,9 +4,35 @@ if [ -r /opt/local/share/doc/git-core/contrib/completion/git-completion.bash ]; 
     GIT_PS1='$(__git_ps1)'
 fi
 
-COLOR_FIRST=17
-COLOR_LAST=231
-HOST_COLOR=$(( $(hostname | cksum | cut -d' ' -f1) % ($COLOR_LAST - $COLOR_FIRST + 1) + $COLOR_FIRST ))
-C_HOST="\\[\033[38;05;${HOST_COLOR}m\\]"
-C_RESET="\\[\033[0m\\]"
-export PS1="${C_HOST}\\h${C_RESET} \\w${C_HOST}$GIT_PS1\\\$${C_RESET} "
+RAND_COLOR_FIRST=17
+RAND_COLOR_LAST=231
+
+PS1_SESSION='\h'
+PS1_PATH='\w'
+
+HOSTNAME=$(hostname)
+case $HOSTNAME in
+nibbler)
+    PS1_SESSION='\u@\h'
+    ;;
+esac
+
+__host_color() {
+    local hostname=$1
+
+    case $hostname in
+    nibbler)
+        echo "32";
+        ;;
+    *)
+        local numeric_hash=$(echo "$hostname" | cksum | cut -d' ' -f1)
+        local color_code=$(($numeric_hash % ($COLOR_LAST - $COLOR_FIRST + 1) + $COLOR_FIRST))
+        echo "38;05;$color_code"
+        ;;
+    esac
+}
+
+C_HOST="\\[\033[01;$(__host_color "$(hostname)")m\\]"
+C_PATH="\\[\033[01;34m\\]"
+C_RESET="\\[\033[00m\\]"
+export PS1="${C_HOST}$PS1_SESSION${C_PATH} $PS1_PATH $GIT_PS1\\\$${C_RESET} "
