@@ -26,7 +26,7 @@ __host_color() {
         ;;
     *)
         local numeric_hash=$(echo "$hostname" | cksum | cut -d' ' -f1)
-        local color_code=$(($numeric_hash % ($COLOR_LAST - $COLOR_FIRST + 1) + $COLOR_FIRST))
+        local color_code=$(($numeric_hash % ($RAND_COLOR_LAST - $RAND_COLOR_FIRST + 1) + $RAND_COLOR_FIRST))
         echo "38;05;$color_code"
         ;;
     esac
