@@ -1,0 +1,3 @@
+#!/bin/bash
+mkdir -p "$HM_WORKDIR/.hm-repos/dmage-hm-repo/"
+$HM_LOCAL_RSYNC -av ./../ "$HM_WORKDIR/.hm-repos/dmage-hm-repo/"
