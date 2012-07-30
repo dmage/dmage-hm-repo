@@ -8,7 +8,7 @@ REMOTE_RSYNC="rsync -e ssh"
 
 
 color() {
-	if [ -n "$TERM" ]; then
+	if [ -n "$TERM" -a "$TERM" != "unknown" ]; then
 		tput -T "$TERM" "$@" || true
 	fi
 }
