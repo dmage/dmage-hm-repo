@@ -1,0 +1,5 @@
+# .shellrc
+[[ -d ~/.shellrc.d ]] &&
+    for f in ~/.shellrc.d/*; do
+        . $f
+    done
