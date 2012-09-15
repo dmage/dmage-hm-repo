@@ -13,7 +13,7 @@ PS1_PATH='\w'
 HOSTNAME=$(hostname)
 case $HOSTNAME in
 nibbler)
-    PS1_SESSION='\D{%H:%M:%S} \u@\h'
+    PS1_SESSION='\033[01;30m\D{%H:%M:%S}\033[01;32m \u@\h'
     ;;
 esac
 

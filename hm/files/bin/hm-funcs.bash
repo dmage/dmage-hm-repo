@@ -202,6 +202,12 @@ real_remote() {
 		discover_dump
 		for PKG in "${SCHEDULE_PKGS[@]}"; do
 			if [ -r "$PKG/remote" ]; then
+				local REPO_NAME=$(get_repo_name "$PKG")
+				local PKG_NAME=$(get_pkg_name "$PKG")
+
+				echo "# $PKG (env)"
+				printf '%s=%q\n' "REPO_NAME" "$REPO_NAME"
+				printf '%s=%q\n' "PKG_NAME" "$PKG_NAME"
 				echo "# $PKG/remote"
 				cat "$PKG/remote"
 				echo
@@ -211,12 +217,28 @@ real_remote() {
 }
 
 
-install_pkg() {
+get_repo_name() {
 	local PKG=$(cd $1; pwd -P)
 
 	local REPO=$(cd "$PKG/.."; pwd -P)
 	local REPO_NAME=$(basename "$REPO")
+
+	echo "$REPO_NAME"
+}
+
+get_pkg_name() {
+	local PKG=$(cd $1; pwd -P)
+
 	local PKG_NAME=$(basename "$PKG")
+
+	echo "$PKG_NAME"
+}
+
+install_pkg() {
+	local PKG=$(cd $1; pwd -P)
+
+	local REPO_NAME=$(get_repo_name "$PKG")
+	local PKG_NAME=$(get_pkg_name "$PKG")
 	
 	echo "$(prefix ">>>") $(pkgname "$REPO_NAME/$PKG_NAME")"
 

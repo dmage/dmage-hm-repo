@@ -1,0 +1,7 @@
+# .bash_profile
+[[ -d ~/.xprofile.d ]] && \
+    for f in ~/.xprofile.d/*; do
+        . $f
+    done
+
+[[ -f ~/.profile ]] && . ~/.profile
