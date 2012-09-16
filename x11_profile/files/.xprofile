@@ -1,4 +1,4 @@
-# .bash_profile
+# .xprofile
 [[ -d ~/.xprofile.d ]] && \
     for f in ~/.xprofile.d/*; do
         . $f
