@@ -31,11 +31,11 @@ bash_timing() {
         fi
 
         if [ $ns -ge 1000000000 ]; then
-            echo "$err_prefix"$'\033[36m'"$__BASH_TIMING__COMMAND"$'\033[0m' :: $'\033[1;31m'$(__bash_timing__format_ns $ns)$'\033[0m'
+            echo "$err_prefix"$'\033[36m'"$__BASH_TIMING__COMMAND"$'\033[0m' :: $'\033[1;31m'$(__bash_timing__format_ns $ns)$'\033[0m' >&2
         elif [ $ns -ge 500000000 ]; then
-            echo "$err_prefix"$'\033[36m'"$__BASH_TIMING__COMMAND"$'\033[0m' :: $'\033[1;33m'$(__bash_timing__format_ns $ns)$'\033[0m'
+            echo "$err_prefix"$'\033[36m'"$__BASH_TIMING__COMMAND"$'\033[0m' :: $'\033[1;33m'$(__bash_timing__format_ns $ns)$'\033[0m' >&2
         elif [ -n "$err_prefix" ]; then
-            echo "$err_prefix"$'\033[36m'"$__BASH_TIMING__COMMAND"$'\033[0m' :: $'\033[1;37m'$(__bash_timing__format_ns $ns)$'\033[0m'
+            echo "$err_prefix"$'\033[36m'"$__BASH_TIMING__COMMAND"$'\033[0m' :: $'\033[1;37m'$(__bash_timing__format_ns $ns)$'\033[0m' >&2
         fi
     fi
 
