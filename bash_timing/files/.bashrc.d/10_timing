@@ -15,9 +15,15 @@ __bash_timing__format_ns() {
     fi
 }
 
-__bash_timing__now() {
-    date +%s%N
-}
+if [ "x$(uname -s)" == "xLinux" ]; then
+    __bash_timing__now() {
+        date +%s%N
+    }
+else
+    __bash_timing__now() {
+        ruby -e 'puts (Time.now.to_f*1000000000).to_i'
+    }
+fi
 
 bash_timing() {
     local err=$?
