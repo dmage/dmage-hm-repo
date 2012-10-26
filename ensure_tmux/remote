@@ -1,0 +1,16 @@
+#!/bin/bash
+if [ -e /etc/debian_version ]; then
+    if dpkg -l tmux >/dev/null; then
+        if which tmux >/dev/null; then
+            echo "ensure_tmux: tmux installed (debian)"
+        else
+            echo "ensure_tmux: partially removed package, reinstalling tmux via apt-get..."
+            sudo apt-get -y install tmux
+        fi
+    else
+        echo "ensure_tmux: installing tmux via apt-get..."
+        sudo apt-get -y install tmux
+    fi
+else
+    echo "ensure_tmux: unknown system"
+fi
