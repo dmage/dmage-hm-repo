@@ -13,7 +13,7 @@ alias pack='tar --dereference --exclude build --exclude .git --exclude .gitignor
 
 alias gbranch='git branch --color'
 alias gdiff='git diff --color'
-alias glog='git log --color --decorate -p'
+alias glog='git log --color --decorate --show-signature -p'
 alias glogstat='git log --color --decorate --stat'
 alias ggraph='git log --color --graph --oneline'
 alias gtree=ggraph
