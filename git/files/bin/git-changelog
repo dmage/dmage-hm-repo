@@ -1,0 +1,21 @@
+#!/bin/bash
+set -uefo pipefail
+
+HEAD=HEAD
+if [[ $# > 0 ]]; then
+    HEAD=$1
+fi
+GIT="git --no-pager"
+
+LAST_RELEASE=$(git describe --tags --abbrev=0 "$HEAD")
+
+git --no-pager show -s --decorate --oneline "$HEAD"
+echo
+
+for m in $($GIT log --first-parent --pretty='format:%H' "$LAST_RELEASE".."$HEAD"); do
+    $GIT log -1 --pretty='tformat:%C(yellow)%s%Creset (committer: %C(cyan)%aN <%aE>%Creset)' "$m"
+    for p in $($GIT show -s --pretty='format:%P' "$m" | tr ' ' '\n' | tail -n +2); do
+        $GIT log --oneline "$LAST_RELEASE".."$p"
+    done
+    echo
+done
