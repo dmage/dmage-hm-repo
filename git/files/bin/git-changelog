@@ -14,8 +14,9 @@ echo
 
 for m in $($GIT log --first-parent --pretty='format:%H' "$LAST_RELEASE".."$HEAD"); do
     $GIT log -1 --pretty='tformat:%C(yellow)%s%Creset (committer: %C(cyan)%aN <%aE>%Creset)' "$m"
+    BASE=$($GIT show -s --pretty='format:%P' "$m" | tr ' ' '\n' | head -n1)
     for p in $($GIT show -s --pretty='format:%P' "$m" | tr ' ' '\n' | tail -n +2); do
-        $GIT log --oneline "$LAST_RELEASE".."$p"
+        $GIT log --oneline "$BASE".."$p"
     done
     echo
 done
