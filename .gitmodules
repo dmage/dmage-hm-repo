@@ -1,3 +1,6 @@
+[submodule "sublime_text_cycle_setting/files"]
+	path = sublime_text_cycle_setting/files
+	url = git://github.com/jmm/Sublime-Text-Cycle-Setting.git
 [submodule "rbenv/rbenv"]
 	path = rbenv/rbenv
 	url = git://github.com/sstephenson/rbenv.git
