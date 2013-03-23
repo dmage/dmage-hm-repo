@@ -1,0 +1,9 @@
+#!/bin/bash
+mkdir -p "$HM_WORKDIR/.rbenv"
+$HM_LOCAL_RSYNC -av --exclude '.git' ./rbenv/ "$HM_WORKDIR/.rbenv/"
+
+mkdir -p "$HM_WORKDIR/.rbenv/plugins/ruby-build"
+$HM_LOCAL_RSYNC -av --exclude '.git' ./ruby-build/ "$HM_WORKDIR/.rbenv/plugins/ruby-build"
+
+mkdir -p "$HM_WORKDIR/.shellrc.d"
+$HM_LOCAL_RSYNC -av ./shellrc.d/ "$HM_WORKDIR/.shellrc.d/"

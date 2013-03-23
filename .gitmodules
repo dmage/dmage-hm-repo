@@ -1,0 +1,9 @@
+[submodule "rbenv/files"]
+	path = rbenv/files
+	url = git://github.com/sstephenson/rbenv.git
+[submodule "rbenv/rbenv"]
+	path = rbenv/rbenv
+	url = git://github.com/sstephenson/rbenv.git
+[submodule "rbenv/ruby-build"]
+	path = rbenv/ruby-build
+	url = git://github.com/sstephenson/ruby-build.git
