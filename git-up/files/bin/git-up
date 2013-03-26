@@ -1,0 +1,13 @@
+#!/bin/bash
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+REMOTE=$(git config branch.$BRANCH.remote)
+MERGE=$(git config branch.$BRANCH.merge)
+
+if [[ "$MERGE" != refs/heads/* ]]; then
+    echo "git up: unexpected branch.$BRANCH.merge: $MERGE" >&2
+    exit
+fi
+MERGE=${MERGE#refs/heads/}
+
+git fetch -p "$REMOTE"
+git merge --ff-only "$REMOTE"/"$MERGE"
