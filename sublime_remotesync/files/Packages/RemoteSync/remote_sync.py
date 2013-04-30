@@ -6,7 +6,8 @@ from threading import Thread
 def tm_sync_routine(path, filename):
     p = subprocess.Popen(["/bin/sh", "-s", path, filename], \
         stdin=subprocess.PIPE, \
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        universal_newlines=True)
     (out, err) = p.communicate("""
         WORKDIR=$1
         FILENAME=$2
@@ -42,7 +43,8 @@ def tm_sync_routine(path, filename):
 def tm_post_command_routine(path, filename):
     p = subprocess.Popen(["/bin/sh", "-s", path, filename], \
         stdin=subprocess.PIPE, \
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        universal_newlines=True)
     (out, err) = p.communicate("""
         WORKDIR=$1
         FILENAME=$2
