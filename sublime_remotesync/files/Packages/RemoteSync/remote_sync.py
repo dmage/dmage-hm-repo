@@ -9,9 +9,14 @@ def tm_sync_routine(path, filename):
         stdout=subprocess.PIPE, stderr=subprocess.PIPE,
         universal_newlines=True)
     (out, err) = p.communicate("""
+        DISABLE=
         WORKDIR=$1
         FILENAME=$2
         . "$WORKDIR/.tm_sync.config"
+
+        if [[ -n "$DISABLE" ]]; then
+            exit
+        fi
 
         FILE=${FILENAME/$WORKDIR\//}
 
@@ -21,11 +26,6 @@ def tm_sync_routine(path, filename):
         RSYNC_RETCODE=$?
 
         exit $RSYNC_RETCODE
-
-        #if [[ -n "$REMOTE_POST_COMMAND" ]]; then
-        #    print_message "Running remote post command" "$REMOTE_POST_COMMAND"
-        #    OUT=$(ssh -f -p "$REMOTE_PORT" "$REMOTE_USER@$REMOTE_HOST" -- "cd \"$REMOTE_PATH\" && $REMOTE_POST_COMMAND 2>&1") && print_message "Remote post command complete" "$OUT"
-        #fi
     """)
     retcode = p.returncode
 
@@ -46,9 +46,14 @@ def tm_post_command_routine(path, filename):
         stdout=subprocess.PIPE, stderr=subprocess.PIPE,
         universal_newlines=True)
     (out, err) = p.communicate("""
+        DISABLE=
         WORKDIR=$1
         FILENAME=$2
         . "$WORKDIR/.tm_sync.config"
+
+        if [[ -n "$DISABLE" ]]; then
+            exit
+        fi
 
         if [[ -n "$REMOTE_POST_COMMAND" ]]; then
             ssh -f -p "$REMOTE_PORT" "$REMOTE_USER@$REMOTE_HOST" -- \
