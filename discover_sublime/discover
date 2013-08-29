@@ -1,12 +1,12 @@
 #!/bin/bash
 SUBLIME_BINARY_PATHS=(
-    "opt/Sublime Text 2"
-    "Library/Application Support/Sublime Text 2"
+    "opt/Sublime Text 3"
+    "Library/Application Support/Sublime Text 3"
 )
 
 SUBLIME_CONFIG_PATHS=(
     ".config/sublime-text-2"
-    "Library/Application Support/Sublime Text 2"
+    "Library/Application Support/Sublime Text 3"
 )
 
 DISCOVER_SUBLIME_BINARY=""
@@ -18,7 +18,7 @@ for SUBLIME_BINARY in "${SUBLIME_BINARY_PATHS[@]}"; do
 done
 
 if [ -z "$DISCOVER_SUBLIME_BINARY" ]; then
-    echo "discover_sublime: failed to find Sublime Text 2 binary" >&2
+    echo "discover_sublime: failed to find Sublime Text 3 binary" >&2
     exit 1
 fi
 
@@ -31,6 +31,6 @@ for SUBLIME in "${SUBLIME_CONFIG_PATHS[@]}"; do
 done
 
 if [ -z "$DISCOVER_SUBLIME" ]; then
-    echo "discover_sublime: failed to find Sublime Text 2 config" >&2
+    echo "discover_sublime: failed to find Sublime Text 3 config" >&2
     exit 1
 fi
