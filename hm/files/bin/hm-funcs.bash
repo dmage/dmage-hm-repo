@@ -383,7 +383,7 @@ remove_broken_links() {
 		LINK_TARGET=$(readlink "$file")
 		if [[ "x$LINK_TARGET" != "x${LINK_TARGET#$REAL_FILES_DIR/}" ]]; then
 			mkdir -p "$(dirname "$REAL_BACKUP_ROOT/${file#$REAL_ROOT/}")"
-			mv -vnT "$file" "$REAL_BACKUP_ROOT/${file#$REAL_ROOT/}"
+			mv -vn "$file" "$REAL_BACKUP_ROOT/${file#$REAL_ROOT/}"
 			rmdir -p "$(dirname "$file")" 2>/dev/null || true
 		fi
 	done < <(
