@@ -1,5 +1,0 @@
-#!/bin/sh
-C=$(current,)
-: ${C:?no current comma-directory}
-
-exec do, wget -P "$HOME/,/$C/distfiles" "$@"

@@ -1,7 +1,0 @@
-#!/bin/bash
-C=$(current,)
-: ${C:?no current comma-directory}
-
-LOG="$HOME/,/$C/log"
-(printf '$'; printf " %q" "$@"; echo) >> "$LOG"
-exec "$@"
