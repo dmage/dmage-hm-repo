@@ -4,8 +4,8 @@ if [[ $- != *i* ]] ; then
     return
 fi
 
-[[ -f /etc/profile.d/bash-completion ]] &&
-    . /etc/profile.d/bash-completion
+[[ -f /etc/bash_completion ]] &&
+    . /etc/bash_completion
 
 if [[ -f ~/.dir_colors ]] ; then
     eval $(dircolors -b ~/.dir_colors)
