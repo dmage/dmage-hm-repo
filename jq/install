@@ -1,0 +1,8 @@
+#!/bin/bash
+cd files
+autoreconf --install
+./configure
+make
+
+mkdir -p "$HM_INSTALL_DIR/bin/"
+cp jq "$HM_INSTALL_DIR/bin/"
