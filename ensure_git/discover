@@ -1,4 +1,5 @@
 #!/bin/bash
+(
 if [ -e /etc/gentoo-release ]; then
     if [ -e /var/db/pkg/dev-vcs/git-* ]; then
         echo "ensure_git: git installed (gentoo)"
@@ -21,3 +22,4 @@ elif [ -e /etc/debian_version ]; then
 else
     echo "ensure_git: unknown system"
 fi
+) >&2
