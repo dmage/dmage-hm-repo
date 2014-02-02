@@ -13,3 +13,6 @@
 [submodule "pep8/files"]
 	path = pep8/files
 	url = git://github.com/jcrocholl/pep8.git
+[submodule "jq/files"]
+	path = jq/files
+	url = https://github.com/stedolan/jq
