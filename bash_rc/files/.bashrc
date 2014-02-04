@@ -30,10 +30,10 @@ case ${TERM} in
     ;;
 esac
 
+[[ -f ~/.shellrc ]] &&
+    . ~/.shellrc
+
 [[ -d ~/.bashrc.d ]] &&
     for f in ~/.bashrc.d/*; do
         . $f
     done
-
-[[ -f ~/.shellrc ]] &&
-    . ~/.shellrc
