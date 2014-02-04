@@ -1,0 +1,18 @@
+#!/bin/bash
+(
+if [ -e /etc/debian_version ]; then
+    need_package() {
+        if dpkg -s $1 >/dev/null; then
+            echo "jq: $1 installed (debian)"
+        else
+            echo "jq: installing $1..."
+            sudo apt-get -y install $1
+        fi
+    }
+    need_package build-essential
+    need_package autoconf
+    need_package libtool
+    need_package flex
+    need_package bison
+fi
+) >&2
