@@ -19,3 +19,6 @@
 [submodule "hm/files"]
 	path = hm/files
 	url = https://github.com/dmage/hm-make
+[submodule "dstat/files"]
+	path = dstat/files
+	url = https://github.com/dagwieers/dstat

@@ -1,0 +1,7 @@
+#!/bin/bash
+DESTDIR="$HM_INSTALL_DIR"
+cd files
+install -d -m0755 "$DESTDIR/bin"
+install -Dp -m0755 dstat "$DESTDIR/bin/dstat"
+install -d -m0755 "$DESTDIR/.dstat"
+install -Dp -m0644 plugins/dstat_*.py "$DESTDIR/.dstat/"
