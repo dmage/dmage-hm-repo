@@ -1,0 +1,2 @@
+#!/bin/bash
+git_repo files/ git://github.com/jmm/Sublime-Text-Cycle-Setting.git

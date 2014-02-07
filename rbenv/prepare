@@ -1,0 +1,3 @@
+#!/bin/bash
+git_repo rbenv/ git://github.com/sstephenson/rbenv.git
+git_repo ruby-build/ git://github.com/sstephenson/ruby-build.git

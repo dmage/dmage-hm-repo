@@ -1,0 +1,2 @@
+#!/bin/bash
+git_repo files/ https://github.com/dmage/hm-make

@@ -1,0 +1,2 @@
+#!/bin/bash
+git_repo files/ git://gitorious.org/willgit/mainline.git
