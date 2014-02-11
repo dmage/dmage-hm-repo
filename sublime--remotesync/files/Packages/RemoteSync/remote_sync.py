@@ -1,13 +1,16 @@
-import sublime, sublime_plugin
-import os, time, subprocess
+import sublime
+import sublime_plugin
+import os
+import time
+import subprocess
 from threading import Thread
 
 
 def tm_sync_routine(path, filename):
-    p = subprocess.Popen(["/bin/sh", "-s", path, filename], \
-        stdin=subprocess.PIPE, \
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-        universal_newlines=True)
+    p = subprocess.Popen(["/bin/sh", "-s", path, filename],
+                         stdin=subprocess.PIPE,
+                         stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                         universal_newlines=True)
     (out, err) = p.communicate("""
         DISABLE=
         WORKDIR=$1
@@ -41,10 +44,10 @@ def tm_sync_routine(path, filename):
 
 
 def tm_post_command_routine(path, filename):
-    p = subprocess.Popen(["/bin/sh", "-s", path, filename], \
-        stdin=subprocess.PIPE, \
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-        universal_newlines=True)
+    p = subprocess.Popen(["/bin/sh", "-s", path, filename],
+                         stdin=subprocess.PIPE,
+                         stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                         universal_newlines=True)
     (out, err) = p.communicate("""
         DISABLE=
         WORKDIR=$1
@@ -74,7 +77,7 @@ def tm_post_command_routine(path, filename):
 
 class TmSyncThread(Thread):
 
-    def __init__ (self, path, filename):
+    def __init__(self, path, filename):
         Thread.__init__(self)
         self.path = path
         self.filename = filename
