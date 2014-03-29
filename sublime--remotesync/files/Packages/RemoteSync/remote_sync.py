@@ -21,6 +21,10 @@ def tm_sync_routine(path, filename):
             exit
         fi
 
+        : ${REMOTE_USER:=$(whoami)}
+        : ${REMOTE_PORT:=22}
+        : ${RSYNC_OPTIONS:=}
+
         FILE=${FILENAME/$WORKDIR\//}
 
         RSYNC_CMD="rsync -av --exclude=.tm_sync.config $RSYNC_OPTIONS"
@@ -57,6 +61,10 @@ def tm_post_command_routine(path, filename):
         if [[ -n "$DISABLE" ]]; then
             exit
         fi
+
+        : ${REMOTE_USER:=$(whoami)}
+        : ${REMOTE_PORT:=22}
+        : ${RSYNC_OPTIONS:=}
 
         if [[ -n "$REMOTE_POST_COMMAND" ]]; then
             ssh -f -p "$REMOTE_PORT" "$REMOTE_USER@$REMOTE_HOST" -- \
