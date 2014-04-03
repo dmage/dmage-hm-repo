@@ -1,0 +1,7 @@
+#!/bin/bash
+$HM_RSYNC -a ./files/ "$HM_WORKDIR/"
+
+cat >>$HM_WORKDIR/.profile.d/00_lang <<END
+LC_ALL="$DISCOVER_LANG"
+LANG="$DISCOVER_LANG"
+END
