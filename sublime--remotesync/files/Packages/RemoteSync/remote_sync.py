@@ -25,11 +25,14 @@ def tm_sync_routine(path, filename):
         : ${REMOTE_PORT:=22}
         : ${RSYNC_OPTIONS:=}
 
+        REMOTE_MACHINE="$REMOTE_USER@$REMOTE_HOST"
         FILE=${FILENAME/$WORKDIR\//}
+        DIR=`dirname "$REMOTE_PATH/$FILE"`
 
         RSYNC_CMD="rsync -av --exclude=.tm_sync.config $RSYNC_OPTIONS"
-        $RSYNC_CMD -e "ssh -p $REMOTE_PORT" \
-            "$WORKDIR/$FILE" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/$FILE"
+        ssh -n -p "$REMOTE_PORT" "$REMOTE_MACHINE" mkdir -p "$DIR"
+        $RSYNC_CMD -e "ssh -p $REMOTE_PORT" \\
+            "$WORKDIR/$FILE" "$REMOTE_MACHINE:$REMOTE_PATH/$FILE"
         RSYNC_RETCODE=$?
 
         exit $RSYNC_RETCODE
