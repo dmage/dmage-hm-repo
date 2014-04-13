@@ -29,10 +29,11 @@ def _tm_script(path, filename, code, script, success_message):
     retcode = p.returncode
     if retcode is None:
         sublime.error_message("RemoteSync: unexpected error, " + code +
-                              " still running.\n" + err)
+                              " still running.\n" + out + "\n" + err)
         return False
     elif retcode != 0:
-        sublime.error_message("RemoteSync: " + code + " failed.\n" + err)
+        sublime.error_message("RemoteSync: " + code + " failed [err=" +
+                              str(retcode) + "].\n" + out + "\n" + err)
         return False
 
     def done():
@@ -75,7 +76,7 @@ class TmSyncThread(Thread):
 
         done = _tm_script(self.path, self.filename, "remote command", """
             if [[ -n "$REMOTE_POST_COMMAND" ]]; then
-                ssh -f -p "$REMOTE_PORT" "$REMOTE_USER@$REMOTE_HOST" -- \
+                ssh -n -p "$REMOTE_PORT" "$REMOTE_USER@$REMOTE_HOST" -- \
                     "cd \"$REMOTE_PATH\" && $REMOTE_POST_COMMAND"
             fi
         """, "Remote command completed successfully")
