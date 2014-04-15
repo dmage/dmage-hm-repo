@@ -2,7 +2,7 @@
 set -euo pipefail
 
 WORKDIR=${WORKDIR:-$(pwd)}
-. "$WORKDIR/.tm_sync.config"
+. "$WORKDIR/${TM_SYNC_CONFIG:-.tm_sync.config}"
 
 : ${REMOTE_USER:=$(whoami)}
 : ${REMOTE_PORT:=22}
