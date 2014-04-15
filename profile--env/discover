@@ -1,5 +1,5 @@
 #!/bin/bash
-for locale in ru_RU.UTF-8 en_US.UTF-8 en_US.utf8; do
+for locale in ru_RU.UTF-8 ru_RU.utf8 en_US.UTF-8 en_US.utf8; do
     if locale -a | grep -i "$locale" >/dev/null; then
         DISCOVER_LANG=$locale
         break
