@@ -1,4 +1,21 @@
 #!/bin/bash
+if [ -e /etc/debian_version ]; then
+    case "$(lsb_release -c | sed -s 's/.*:[[:space:]]*//')" in
+        lucid)
+            case "$(uname -m)" in
+                x86)
+                    export DISCOVER_JQ_URL="http://stedolan.github.io/jq/download/linux32/jq"
+                    ;;
+                x86_64)
+                    export DISCOVER_JQ_URL="http://stedolan.github.io/jq/download/linux64/jq"
+                    ;;
+                *)
+                    echo "jq: unexpected arch: $(uname -m)"
+            esac
+            ;;
+    esac
+fi
+
 (
 if [ -e /etc/debian_version ]; then
     need_package() {
@@ -9,10 +26,13 @@ if [ -e /etc/debian_version ]; then
             sudo apt-get -y install $1
         fi
     }
-    need_package build-essential
-    need_package autoconf
-    need_package libtool
-    need_package flex
-    need_package bison
+
+    if [[ -z "${DISCOVER_JQ_URL:-}" ]]; then
+        need_package build-essential
+        need_package autoconf
+        need_package libtool
+        need_package flex
+        need_package bison
+    fi
 fi
 ) >&2

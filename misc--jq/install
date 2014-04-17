@@ -2,11 +2,16 @@
 if [[ "$(uname -s)" == "Darwin" ]]; then
     brew install jq
 else
-    cd files
-    autoreconf --install
-    ./configure
-    make
+    if [[ -n "${DISCOVER_JQ_URL:-}" ]]; then
+        mkdir -p "$HM_INSTALL_DIR/bin/"
+        wget "$DISCOVER_JQ_URL" -O "$HM_INSTALL_DIR/bin/jq"
+    else
+        cd files
+        autoreconf --install
+        ./configure
+        make
 
-    mkdir -p "$HM_INSTALL_DIR/bin/"
-    cp jq "$HM_INSTALL_DIR/bin/"
+        mkdir -p "$HM_INSTALL_DIR/bin/"
+        cp jq "$HM_INSTALL_DIR/bin/"
+    fi
 fi
